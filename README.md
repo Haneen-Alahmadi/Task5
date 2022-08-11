@@ -40,12 +40,40 @@ $ git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulation
 
 $ cd ~/catkin_ws && catkin_make
 
+
 #5-Launch Simulation World 
 
 $ export TURTLEBOT3_MODEL=burger
-$ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
- #-TurtleBot3 World
+$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
 
 #6-Operate TurtleBot3
+$ export TURTLEBOT3_MODEL=burger
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
+#7-open new terminal to Launch the Gmapping SLAM node.
+
+$ export TURTLEBOT3_MODEL=burger
+
+$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+
+ #now RViz will open
+ 
+#8-open new terminal to Run Teleoperation Node
+ 
+$ export TURTLEBOT3_MODEL=burger
 $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+#9-open new terminal to save a map
+
+$ rosrun map_server map_saver -f ~/map
+
+#10-Run Navigation Nodes
+
+$ export TURTLEBOT3_MODEL=burger
+
+$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+
+#11-open new terminal to Launch the Navigation
+$ export TURTLEBOT3_MODEL=burger
+$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
